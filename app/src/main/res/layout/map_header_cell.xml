@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:background="#669999"
+    android:paddingLeft="8dp"
+    app:slm_headerDisplay="inline|sticky"
+    app:slm_isHeader="true"
+    tools:text="Header Item"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Level"
+        android:id="@+id/map_lvl"
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
