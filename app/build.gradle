@@ -27,4 +27,7 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
     compile 'com.tonicartos:superslim:0.4.13'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    compile 'com.google.android.gms:play-services:8.4.0'
+
 }

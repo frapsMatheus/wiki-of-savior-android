@@ -3,12 +3,12 @@ package stepbystep.co.wikiofsavior;
 import android.app.Application;
 
 import com.parse.Parse;
-
 /**
  * Created by fraps on 4/28/16.
  */
 public class WikiOfSaviorAPP extends Application
 {
+    public int showAddCount=0;
 
     @Override
     public void onCreate()
