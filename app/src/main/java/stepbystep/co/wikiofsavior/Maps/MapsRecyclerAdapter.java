@@ -51,14 +51,30 @@ public class MapsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mAttacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float v, float v1) {
+                WikiOfSaviorAPP app = (WikiOfSaviorAPP)mContext.getApplication();
+                app.showAddCount++;
+                if(app.showAddCount==3){
+                    RevMob revMob = RevMob.session();
+                    revMob.showFullscreen(mContext);
+                    app.showAddCount=0;
+                }
                 mImageDialog.dismiss();
             }
             @Override
             public void onOutsidePhotoTap() {
+                WikiOfSaviorAPP app = (WikiOfSaviorAPP)mContext.getApplication();
+                app.showAddCount++;
+                if(app.showAddCount==3){
+                    RevMob revMob = RevMob.session();
+                    revMob.showFullscreen(mContext);
+                    app.showAddCount=0;
+                }
                 mImageDialog.dismiss();
             }
         });
     }
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -122,14 +138,6 @@ public class MapsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v)
                 {
-                    WikiOfSaviorAPP app = (WikiOfSaviorAPP)mContext.getApplication();
-                    app.showAddCount++;
-                    if(app.showAddCount==3){
-                        RevMob revMob = RevMob.session();
-                        revMob.showFullscreen(mContext);
-                        app.showAddCount=0;
-
-                    }
                     mImageDialog.show();
                     loadImage(map);
                 }

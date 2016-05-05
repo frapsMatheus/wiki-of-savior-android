@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Wiki of Savior</string>
+    <string-array name="classes">
+        <item>Archer</item>
+        <item>Swordsman</item>
+        <item>Cleric</item>
+        <item>Wizard</item>
+    </string-array>
+
+
 </resources>

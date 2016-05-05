@@ -1,17 +1,21 @@
-package stepbystep.co.wikiofsavior;
+package stepbystep.co.wikiofsavior.Maps;
 
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
@@ -27,9 +31,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import stepbystep.co.wikiofsavior.DataTypes.Map;
-import stepbystep.co.wikiofsavior.Maps.MapsRecyclerAdapter;
+import stepbystep.co.wikiofsavior.MainActivity;
+import stepbystep.co.wikiofsavior.R;
 
-public class MapsActivity extends AppCompatActivity {
+public class MapsFragment extends Fragment {
 
     private RecyclerView mMapsRecycler;
     private MapsRecyclerAdapter mMapsAdapter;
@@ -40,67 +45,68 @@ public class MapsActivity extends AppCompatActivity {
     private LinkedHashMap<Integer,Map> mMapsDictionary;
     private Dialog mImageDialog;
     private ProgressBar mProgress;
-    private RevMob revmob;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        revmob = RevMob.startWithListener(this, new RevMobAdsListener() {
-            @Override
-            public void onRevMobSessionIsStarted() {
-
-            }
-        });
-
+        View v = inflater.inflate(R.layout.activity_maps, container, false);
+        setHasOptionsMenu(true);
 //      Start ui fields
-        mMapsRecycler = (RecyclerView) findViewById(R.id.maps_recyclerView);
-        mProgress = (ProgressBar) findViewById(R.id.map_progress);
+        mMapsRecycler = (RecyclerView) v.findViewById(R.id.maps_recyclerView);
+        mProgress = (ProgressBar) v.findViewById(R.id.map_progress);
         mProgress.setVisibility(View.VISIBLE);
-        mRecyclerLayout = new LayoutManager(getApplication());
+        mRecyclerLayout = new LayoutManager(getActivity().getApplication());
         mMapsRecycler.setLayoutManager(mRecyclerLayout);
 //       Prepare imageDialog
-        mImageDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar);
+        mImageDialog = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar);
         mImageDialog.setContentView(R.layout.fullscreen_image);
         mImageDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         donwloadMaps();
+        return v;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
+    public void onStart() {
+        super.onStart();
+        ((MainActivity)getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.options_menu, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchManager manager =
+                (SearchManager) getActivity().getApplication().getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = (MenuItem) menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-        {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchList(query);
-                return false;
-            }
+                manager.getSearchableInfo(getActivity().getComponentName()));
+        if (searchView != null) {
+            searchView.setVisibility(View.VISIBLE);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    searchList(query);
+                    return false;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchList(newText);
-                return false;
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                searchList("");
-                return false;
-            }
-        });
-        return true;
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    searchList(newText);
+                    return false;
+                }
+            });
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    searchList("");
+                    return false;
+                }
+            });
+        }
     }
 
     private void searchList(String text)
@@ -123,7 +129,7 @@ public class MapsActivity extends AppCompatActivity {
             }
         }
         mMapsAdapter = new MapsRecyclerAdapter(mImageDialog,mMapsDictionary,mLevelsMap,
-                                                mPositionsLevelsMap,MapsActivity.this);
+                                                mPositionsLevelsMap,getActivity());
         mMapsRecycler.setAdapter(mMapsAdapter);
     }
 
