@@ -6,6 +6,8 @@
         <item>Cleric</item>
         <item>Wizard</item>
     </string-array>
-
+    <!--Ads-->
+    <string name="preference_file_key">stepbystep.co.wikiofsavior.ADS_Preferences</string>
+    <string name="ad_count">adCount</string>
 
 </resources>

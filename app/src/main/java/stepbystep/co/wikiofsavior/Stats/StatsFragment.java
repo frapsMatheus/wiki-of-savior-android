@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 import com.revmob.RevMob;
 
 import java.util.ArrayList;
@@ -68,12 +69,7 @@ public class StatsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 WikiOfSaviorAPP app = (WikiOfSaviorAPP)getActivity().getApplication();
-                app.showAddCount++;
-                if(app.showAddCount==3){
-                    RevMob revMob = RevMob.session();
-                    revMob.showFullscreen(getActivity());
-                    app.showAddCount=0;
-                }
+                app.adManager.showAd();
                 mResults = calculateStats();
                 if (mResults != null) {
                     mAdapter = new StatsRecyclerAdapter(mResults);

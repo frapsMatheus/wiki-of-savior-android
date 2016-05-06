@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 import com.revmob.RevMob;
 import com.tonicartos.superslim.GridSLM;
 import java.util.LinkedHashMap;
@@ -52,23 +53,13 @@ public class MapsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onPhotoTap(View view, float v, float v1) {
                 WikiOfSaviorAPP app = (WikiOfSaviorAPP)mContext.getApplication();
-                app.showAddCount++;
-                if(app.showAddCount==3){
-                    RevMob revMob = RevMob.session();
-                    revMob.showFullscreen(mContext);
-                    app.showAddCount=0;
-                }
+                app.adManager.showAd();
                 mImageDialog.dismiss();
             }
             @Override
             public void onOutsidePhotoTap() {
                 WikiOfSaviorAPP app = (WikiOfSaviorAPP)mContext.getApplication();
-                app.showAddCount++;
-                if(app.showAddCount==3){
-                    RevMob revMob = RevMob.session();
-                    revMob.showFullscreen(mContext);
-                    app.showAddCount=0;
-                }
+                app.adManager.showAd();
                 mImageDialog.dismiss();
             }
         });
@@ -106,10 +97,12 @@ public class MapsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         map.mImage.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] data, ParseException e) {
-                Bitmap bmp = BitmapFactory
-                        .decodeByteArray(data, 0, data.length);
-                mImageFullscreen.setImageBitmap(bmp);
-                mAttacher.update();
+                if (e == null) {
+                    Bitmap bmp = BitmapFactory
+                            .decodeByteArray(data, 0, data.length);
+                    mImageFullscreen.setImageBitmap(bmp);
+                    mAttacher.update();
+                }
             }
         });
         mImageFullscreen.setImageBitmap(null);

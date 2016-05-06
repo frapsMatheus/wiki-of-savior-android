@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import stepbystep.co.wikiofsavior.Maps.MapsFragment;
 import stepbystep.co.wikiofsavior.Stats.StatsFragment;
+import stepbystep.co.wikiofsavior.XP_Simulator.XP_Fragment;
 
 /**
  * Created by Admin on 11-12-2015.
@@ -21,6 +22,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new MapsFragment();
+            case 1:
+                return new XP_Fragment();
             default:
                 return new StatsFragment();
         }
@@ -30,7 +33,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;           // As there are only 3 Tabs
+        return 3;           // As there are only 3 Tabs
     }
 
 }

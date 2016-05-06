@@ -2,6 +2,7 @@ package stepbystep.co.wikiofsavior;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -15,8 +16,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.purplebrain.adbuddiz.sdk.AdBuddiz;
 import com.revmob.RevMob;
 import com.revmob.RevMobAdsListener;
+import com.revmob.RevMobUserGender;
+
+import java.util.ArrayList;
 
 import stepbystep.co.wikiofsavior.Maps.MapsFragment;
 import stepbystep.co.wikiofsavior.Tabs.ViewPagerAdapter;
@@ -39,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        revmob = RevMob.startWithListener(this, new RevMobAdsListener() {
-            @Override
-            public void onRevMobSessionIsStarted() {
 
-            }
-        });
 
         /*
         Assigning view variables to thier respective view in xml
@@ -70,24 +70,26 @@ public class MainActivity extends AppCompatActivity {
         which is below the tabs, its the tab itself.
          */
 
-        final TabLayout.Tab home = tabLayout.newTab();
-        final TabLayout.Tab inbox = tabLayout.newTab();
+        final TabLayout.Tab maps = tabLayout.newTab();
+        final TabLayout.Tab stats = tabLayout.newTab();
+        final TabLayout.Tab xp = tabLayout.newTab();
 
         /*
         Setting Title text for our tabs respectively
          */
 
-        home.setText("Maps");
-        inbox.setText("Stats simulator");
+        maps.setText("Maps");
+        xp.setText("XP Simulator");
+        stats.setText("Stats simulator");
 
         /*
         Adding the tab view to our tablayout at appropriate positions
         As I want home at first position I am passing home and 0 as argument to
         the tablayout and like wise for other tabs as well
          */
-        tabLayout.addTab(home, 0);
-        tabLayout.addTab(inbox, 1);
-
+        tabLayout.addTab(maps, 0);
+        tabLayout.addTab(xp, 1);
+        tabLayout.addTab(stats, 2);
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
         tab change colors in different situations such as selected, active, inactive etc
@@ -131,5 +133,15 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 20) {
+            WikiOfSaviorAPP app = (WikiOfSaviorAPP)getApplication();
+            app.adManager.showAd();
+        }
     }
 }
