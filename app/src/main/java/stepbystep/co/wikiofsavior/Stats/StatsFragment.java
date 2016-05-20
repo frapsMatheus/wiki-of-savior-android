@@ -9,9 +9,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
-import com.revmob.RevMob;
+
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 
 import java.util.ArrayList;
 
@@ -81,7 +80,7 @@ public class StatsFragment extends Fragment {
     }
 
     private ArrayList<Pair<String,String>> calculateStats(){
-
+        Answers.getInstance().logCustom(new CustomEvent("Stats calculation"));
         int level = 0;
         int str = 0;
         int con = 0;
@@ -126,6 +125,7 @@ public class StatsFragment extends Fragment {
         }
         String classType = String.valueOf(mClassField.getSelectedItem());
         StatsCalculation calculation = new StatsCalculation(str,con,inteligence,spr,dex,level,classType);
+
         return calculation.getArrayOfResults();
     }
 

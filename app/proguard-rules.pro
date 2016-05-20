@@ -19,10 +19,8 @@
 -dontwarn java.nio.file.**
 -dontwarn com.squareup.okhttp.internal.huc.**
 -dontwarn com.android.volley.error.**
--dontwarn com.parse.** 
--dontwarn com.revmob.**
+-dontwarn com.parse.**
 -keep class com.parse.** { *; }
--keep class com.revmob.** { *; }
 -keep class com.google.android.gms.** { *; }
 -dontwarn com.google.android.gms.**
 -keep class com.squareup.okhttp.internal.huc.** { *; }

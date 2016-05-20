@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
-import com.revmob.RevMob;
 import com.tonicartos.superslim.GridSLM;
 import java.util.LinkedHashMap;
 
@@ -131,6 +131,7 @@ public class MapsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v)
                 {
+                    Answers.getInstance().logCustom(new CustomEvent("Map opened"));
                     mImageDialog.show();
                     loadImage(map);
                 }

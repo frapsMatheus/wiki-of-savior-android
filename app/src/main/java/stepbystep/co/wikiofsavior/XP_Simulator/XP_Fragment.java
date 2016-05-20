@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import stepbystep.co.wikiofsavior.R;
-import stepbystep.co.wikiofsavior.WikiOfSaviorAPP;
 
 /**
  * Created by Fraps on 15/05/2016.
@@ -239,7 +237,7 @@ public class XP_Fragment extends Fragment {
             Float finalPercentage = (((float) finalClassResults.get("remainingXP"))*100)/((float)nextClassOBJ.requiredXP);
             resultsIntent.putExtra("finalClassPercentage",finalPercentage);
         }
-
+        Answers.getInstance().logCustom(new CustomEvent("XP Simulation"));
         getActivity().startActivityForResult(resultsIntent,20);
         getActivity().overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
     }

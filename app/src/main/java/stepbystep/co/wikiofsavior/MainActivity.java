@@ -11,19 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.purplebrain.adbuddiz.sdk.AdBuddiz;
-import com.revmob.RevMob;
-import com.revmob.RevMobAdsListener;
-import com.revmob.RevMobUserGender;
-
-import java.util.ArrayList;
-
-import stepbystep.co.wikiofsavior.Maps.MapsFragment;
 import stepbystep.co.wikiofsavior.Tabs.ViewPagerAdapter;
 
 /**
@@ -35,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
-    private RevMob revmob;
 
     public SearchView mSearchView;
     public SearchManager mSearchManager;
@@ -54,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-
+        viewPager.setOffscreenPageLimit(4);
         /*
         Creating Adapter and setting that adapter to the viewPager
         setSupportActionBar method takes the toolbar and sets it as
@@ -71,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         final TabLayout.Tab maps = tabLayout.newTab();
+        final TabLayout.Tab recipes = tabLayout.newTab();
         final TabLayout.Tab stats = tabLayout.newTab();
         final TabLayout.Tab xp = tabLayout.newTab();
 
@@ -79,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
          */
 
         maps.setText("Maps");
-        xp.setText("XP Simulator");
-        stats.setText("Stats simulator");
+        recipes.setText("Recipes");
+        xp.setText("XP");
+        stats.setText("Stats");
 
         /*
         Adding the tab view to our tablayout at appropriate positions
@@ -88,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
         the tablayout and like wise for other tabs as well
          */
         tabLayout.addTab(maps, 0);
-        tabLayout.addTab(xp, 1);
-        tabLayout.addTab(stats, 2);
+        tabLayout.addTab(recipes, 1);
+        tabLayout.addTab(xp, 2);
+        tabLayout.addTab(stats, 3);
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
         tab change colors in different situations such as selected, active, inactive etc
