@@ -12,9 +12,19 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#-keepclassmembers   class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
--dontwarn com.parse.** 
--dontwarn com.revmob.** 
+-dontwarn com.google.gson.**
+-dontwarn java.nio.file.**
+-dontwarn com.squareup.okhttp.internal.huc.**
+-dontwarn com.android.volley.error.**
+-dontwarn com.parse.**
+-keep class com.parse.** { *; }
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
+-keep class com.squareup.okhttp.internal.huc.** { *; }
+-keep class okio.** { *; }
+-keep class android.support.design.widget.** { *; }
+-keep interface android.support.design.widget.** { *; }
+-dontwarn android.support.design.**

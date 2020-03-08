@@ -25,4 +25,9 @@ public class MapsHeaderCell extends RecyclerView.ViewHolder {
     public void setHeader(Integer lvl){
         mLevel.setText("Level " + String.valueOf(lvl));
     }
+
+    public void setHeader(String name)
+    {
+        mLevel.setText(name);
+    }
 }

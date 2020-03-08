@@ -6,6 +6,11 @@
         <item>Cleric</item>
         <item>Wizard</item>
     </string-array>
-
-
+    <!--Ads-->
+    <string name="preference_file_key">stepbystep.co.wikiofsavior.ADS_Preferences</string>
+    <string name="ad_count">adCount</string>
+    <string name="recipes_hint">Recipe</string>
+    <string name="item_hint">Item</string>
+    <string name="recipe_message">Enter the name of a recipe to find out its items.</string>
+    <string name="item_message">Enter the name of an item to find out if it belongs to any recipe.</string>
 </resources>

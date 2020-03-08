@@ -22,8 +22,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.revmob.RevMob;
-import com.revmob.RevMobAdsListener;
 import com.tonicartos.superslim.LayoutManager;
 
 import java.util.ArrayList;
@@ -111,26 +109,28 @@ public class MapsFragment extends Fragment {
 
     private void searchList(String text)
     {
-        mLevelsMap = new LinkedHashMap<Integer,Integer>();
-        mPositionsLevelsMap = new LinkedHashMap<Integer,Integer>();
-        mMapsDictionary = new LinkedHashMap<Integer, Map>();
-        int currentLevel = -1;
-        int currentPosition = 0;
-        for (Map map : mMapsArray) {
-            if(isValidMap(map,text)) {
-                if (currentLevel != map.mLevel) {
-                    mLevelsMap.put(currentPosition, map.mLevel);
-                    mPositionsLevelsMap.put(map.mLevel, currentPosition);
+        if (mMapsArray != null) {
+            mLevelsMap = new LinkedHashMap<Integer, Integer>();
+            mPositionsLevelsMap = new LinkedHashMap<Integer, Integer>();
+            mMapsDictionary = new LinkedHashMap<Integer, Map>();
+            int currentLevel = -1;
+            int currentPosition = 0;
+            for (Map map : mMapsArray) {
+                if (isValidMap(map, text)) {
+                    if (currentLevel != map.mLevel) {
+                        mLevelsMap.put(currentPosition, map.mLevel);
+                        mPositionsLevelsMap.put(map.mLevel, currentPosition);
+                        currentPosition++;
+                        currentLevel = map.mLevel;
+                    }
+                    mMapsDictionary.put(currentPosition, map);
                     currentPosition++;
-                    currentLevel = map.mLevel;
                 }
-                mMapsDictionary.put(currentPosition, map);
-                currentPosition++;
             }
+            mMapsAdapter = new MapsRecyclerAdapter(mImageDialog, mMapsDictionary, mLevelsMap,
+                    mPositionsLevelsMap, getActivity());
+            mMapsRecycler.setAdapter(mMapsAdapter);
         }
-        mMapsAdapter = new MapsRecyclerAdapter(mImageDialog,mMapsDictionary,mLevelsMap,
-                                                mPositionsLevelsMap,getActivity());
-        mMapsRecycler.setAdapter(mMapsAdapter);
     }
 
     private boolean isValidMap(Map map, String text)
@@ -149,6 +149,7 @@ public class MapsFragment extends Fragment {
     {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Maps");
         query.orderByAscending("Lv");
+        query.setLimit(1000);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e)

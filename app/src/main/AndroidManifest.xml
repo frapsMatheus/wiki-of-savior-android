@@ -3,7 +3,7 @@
     package="stepbystep.co.wikiofsavior" >
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
     <application
@@ -24,17 +24,8 @@
             </intent-filter>
         </activity>
 
-        <!--Ads-->
-        <meta-data android:name="com.revmob.app.id" android:value="5723d2c4b40c94500bee7a60"/>
-        <activity android:name="com.revmob.FullscreenActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:configChanges="keyboardHidden|orientation">
-        </activity>
-        <activity android:name="com.chartboost.sdk.CBImpressionActivity"
-            android:excludeFromRecents="true"
-            android:hardwareAccelerated="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".XP_Simulator.XP_Results_Activity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
